@@ -11,6 +11,8 @@ const signinRouter = require('./routes/signin');
 const registerRouter = require('./routes/register');
 const detailRouter = require('./routes/detail');
 const basketRouter = require('./routes/basket');
+const contactRouter = require('./routes/contact');
+const textRouter = require('./routes/text')
 
 const app = express();
 
@@ -25,12 +27,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/index', indexRouter);
 app.use('/users', usersRouter);
 app.use('/category', categoryRouter);
 app.use('/signin', signinRouter);
 app.use('/register', registerRouter);
 app.use('/detail', detailRouter);
 app.use('/basket', basketRouter);
+app.use('/contact', contactRouter);
+app.use('/text', textRouter);
 
 
 // catch 404 and forward to error handler
