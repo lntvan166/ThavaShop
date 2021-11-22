@@ -4,30 +4,56 @@
  * Module dependencies.
  */
 
+require('dotenv').config();
 var app = require('../app');
 var debug = require('debug')('eshop:server');
 var http = require('http');
 
-/**
- * Get port from environment and store in Express.
- */
+//lets require/import the mongodb native drivers.
+var mongodb = require('mongodb');
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+//We need to work with "MongoClient" interface in order to connect to a mongodb server.
+var MongoClient = mongodb.MongoClient;
 
-/**
- * Create HTTP server.
- */
+// Connection URL. This is where your mongodb server is running.
+var url = process.env.MONGODB_URI;
 
-var server = http.createServer(app);
+// Use connect method to connect to the Server
+MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+    //HURRAY!! We are connected. :)
+    console.log('Connection established to', url);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+    // do some work here with the database.
+    /**
+    * Get port from environment and store in Express.
+    */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+    var port = normalizePort(process.env.PORT || '3000');
+    app.set('port', port);
+
+    /**
+     * Create HTTP server.
+     */
+
+    var server = http.createServer(app);
+
+    /**
+     * Listen on provided port, on all network interfaces.
+     */
+
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', () => onListening(server, debug));
+
+
+    //Close connection
+    db.close();
+  }
+});
+
 
 /**
  * Normalize a port into a number, string, or false.
@@ -81,7 +107,7 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
+function onListening(server, debug) {
   var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
