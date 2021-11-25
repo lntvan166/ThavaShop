@@ -1,15 +1,12 @@
 const { ObjectId } = require('bson');
-const mongoose = require('mongoose');
-const slugify = require('slugify');
+const db = require('../database');
 
-const schema = mongoose.Schema({
+const schema = db.Schema({
     customer: {
         type: ObjectId, 
         required: true
     },
-    date: {
-        type: Date
-    }
-});
-const Order = mongoose.model('Order', schema);
+    date: Date
+}, {collection: "order"});
+const Order = db.model('Order', schema);
 module.exports = Order;

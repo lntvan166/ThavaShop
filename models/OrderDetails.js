@@ -1,8 +1,7 @@
-const { ObjectId, Int32 } = require('bson');
-const mongoose = require('mongoose');
-const slugify = require('slugify');
+const { ObjectId } = require('bson');
+const db = require('../database');
 
-const schema = mongoose.Schema({
+const schema = db.Schema({
     orderID: {
         type: ObjectId,
         required: true
@@ -12,8 +11,8 @@ const schema = mongoose.Schema({
         required: true
     },
     amount: {
-        type: Int32
+        type: Number
     }
-});
-const OrderDetails = mongoose.model('OrderDetails', schema);
+}, {collection: 'orderDetails'});
+const OrderDetails = db.model('OrderDetails', schema);
 module.exports = OrderDetails;
