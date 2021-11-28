@@ -11,15 +11,6 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/category', async function(req, res, next) {
-  try {
-    const products = await Product.find({}).limit(6);
-    res.render('../components/products/category', {products: products});  
-  } catch {
-    console.log('Error find products');
-  }
-});
-
 router.get('/basket', function(req, res, next) {
   res.render('basket');  
 });
