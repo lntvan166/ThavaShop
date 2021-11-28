@@ -21,5 +21,5 @@ const productSchema = db.Schema({
     },
 }, {collection: 'product'});
 
-const Product = db.model('Product', productSchema);
+const Product = db.model('Product', productSchema, 'product');
 module.exports = Product;
