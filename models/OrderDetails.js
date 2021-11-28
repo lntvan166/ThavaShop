@@ -1,7 +1,7 @@
 const { ObjectId } = require('bson');
-const db = require('../database');
+const mongoose = require('mongoose')
 
-const schema = db.Schema({
+const schema = mongoose.Schema({
     orderID: {
         type: ObjectId,
         required: true
@@ -14,5 +14,5 @@ const schema = db.Schema({
         type: Number
     }
 }, {collection: 'orderDetails'});
-const OrderDetails = db.model('OrderDetails', schema);
+const OrderDetails = mongoose.model('OrderDetails', schema);
 module.exports = OrderDetails;

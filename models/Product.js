@@ -1,6 +1,6 @@
-const db = require('../database');
+const mongoose = require('mongoose')
 
-const productSchema = db.Schema({
+const productSchema = mongoose.Schema({
     name: {
         type: String,
         trim: true,
@@ -21,5 +21,5 @@ const productSchema = db.Schema({
     },
 }, {collection: 'product'});
 
-const Product = db.model('Product', productSchema, 'product');
+const Product = mongoose.model('Product', productSchema, 'product');
 module.exports = Product;
