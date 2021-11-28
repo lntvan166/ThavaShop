@@ -5,3 +5,8 @@ exports.list = async function (req, res) {
     res.render('../components/products/category.hbs', {products})
 }
 
+exports.getProductById = async function (req, res) {
+    const product = await productService.productByID(req.params.productId)
+    console.log(product);
+    res.render('../components/products/detail.hbs', {product})
+}

@@ -24,13 +24,6 @@ app.use('/', indexRouter);
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
 app.use('/category', productRouter);
-// app.use('/category', categoryRouter);
-// app.use('/signin', signinRouter);
-// app.use('/register', registerRouter);
-// app.use('/detail', detailRouter);
-// app.use('/basket', basketRouter);
-// app.use('/contact', contactRouter);
-// app.use('/text', textRouter);
 
 
 // catch 404 and forward to error handler
