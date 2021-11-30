@@ -24,11 +24,11 @@ router.get('/detail', function(req, res, next) {
 });
 
 router.get('/register', function(req, res, next) {
-  res.render('register');  
+  res.render('login_register');  
 });
 
 router.get('/login', function(req, res, next) {
-  res.render('login');  
+  res.render('login_register');  
 });
 
 router.get('/text', function(req, res, next) {
