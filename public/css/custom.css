@@ -1,1 +1,7 @@
 /* your styles go here */
+#content .product .product-img {
+    width:  255px;
+    height: 400px;
+    max-height: 100%;
+    max-width: 100%;
+}

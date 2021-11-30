@@ -28,7 +28,7 @@ exports.category = async function (req, res) {
 
     var next = {
         "isHas": true,
-        "page": pageIndex + 1
+        "page": pageIndex + 5
     }
 
     if (pageIndex == 1) previous.isHas = false
