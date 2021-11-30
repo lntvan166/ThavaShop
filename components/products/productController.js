@@ -5,9 +5,11 @@ exports.category = async function (req, res) {
     if(!page) page = 1
     const products = await productService.list()
     const length = products.length
-    const index = Math.floor(page / 5)
-    var pagesNow = []
-    for (var i = index * 5 + 1; i < index * 5 + 6; i++) {
+    
+    // page bar
+    const pageIndex = Math.floor(page / 5) * 5 + 1
+    var pageBar = []
+    for (var i = pageIndex; i < pageIndex + 5; i++) {
         var item = {
             "page": i,
             "active": ""
@@ -15,16 +17,30 @@ exports.category = async function (req, res) {
         if(i == page) item.active = "active"
             
         if (products[(i - 1) * 6]) {
-            pagesNow.push(item)
+            pageBar.push(item)
         }
     }  // show 5 pages each time
 
+    var previous = {
+        "isHas": true,
+        "page": pageIndex - 1
+    }
+
+    var next = {
+        "isHas": true,
+        "page": pageIndex + 1
+    }
+
+    if (pageIndex == 1) previous.isHas = false
+    if (!products[(pageIndex + 5) * 6]) next.isHas = false
+
+    // product
     const productToShow = []
     for (var i = (page - 1) * 6; i < page * 6; i++){
         if(products[i]) productToShow.push(products[i])
     }
-    console.log(productToShow);
-    res.render('../components/products/category.hbs', {productToShow, length, pagesNow})
+
+    res.render('../components/products/category.hbs', {productToShow, length, pageBar, previous, next})
 }
 
 exports.getProductById = async function (req, res) {
