@@ -1,25 +1,30 @@
 const mongoose = require('mongoose')
 
-const productSchema = mongoose.Schema({
+const schema = mongoose.Schema({
     name: {
         type: String,
-        trim: true,
         required: true
     },
     price: {
         type: Number,
         required: true
     },
-    image: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        trim: true,
-        required: true
-    },
-}, {collection: 'product'});
+    image: Buffer,
+    image2: String,
+    material: String,
+    care: String,
+    brand: String,
+    color: String,
+    size: Array,
+    imageType: String,
+    description: String
+})
 
-const Product = mongoose.model('Product', productSchema, 'product');
-module.exports = Product;
+schema.virtual('imageObj').get(function() {
+    if (this.image != null && this.imageType != null) {
+        return `data:${this.imageType};charset=utf-8;base64,${this.image.toString('base64')}`
+    }
+})
+
+module.exports = mongoose.model('Product', schema, 'product')
+module.exports.everySize = ['S','M','L','XL','XXL']
