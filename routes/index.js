@@ -9,18 +9,30 @@ const Product = require('../models/Product') // Tested ok!
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
+});
 
-  // and log the users (testing)
-  Product.find((err, docs) => {
-    if (!err) {
-      console.log(docs);
-      // res.render('list', {
-      //   data: docs
-      // })
-    } else {
-      console.log('Failed to retrieve the things: '+e);
-    }
-  })
+router.get('/basket', function(req, res, next) {
+  res.render('basket');  
+});
+
+router.get('/contact', function(req, res, next) {
+  res.render('contact');  
+});
+
+router.get('/detail', function(req, res, next) {
+  res.render('detail');  
+});
+
+router.get('/register', function(req, res, next) {
+  res.render('login_register');  
+});
+
+router.get('/login', function(req, res, next) {
+  res.render('login_register');  
+});
+
+router.get('/text', function(req, res, next) {
+  res.render('text');  
 });
 
 module.exports = router;
