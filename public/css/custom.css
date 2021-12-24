@@ -5,3 +5,9 @@
     max-height: 100%;
     max-width: 100%;
 }
+
+#signin-btn {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: rgb(79, 191, 168);
+}

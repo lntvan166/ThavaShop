@@ -1,8 +1,10 @@
-const Product = require("../../models/Product")
+    const Product = require("../../models/Product")
 
 exports.list = () => Product.find({})
 
-exports.productByID = (id) => Product.findOne({ _id: id }).lean()
+exports.productByID = (id) => Product.findOne({ _id: id })
+
+exports.productBySlug = (slug) => Product.findOne({ slug: slug })
 
 exports.count = () => Product.count({}).exec()
 

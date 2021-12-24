@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 // const OrderDetails = require('../models/OrderDetails') // Tested ok!
 // const Order = require('../models/Order') // Tested ok!
 const Product = require('../models/Product') // Tested ok!
+// const loggedInUserGuard = require('../middlewares/loggedInUserGuard')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -23,16 +24,17 @@ router.get('/detail', function(req, res, next) {
   res.render('detail');  
 });
 
-router.get('/register', function(req, res, next) {
-  res.render('login_register');  
-});
+// router.get('/register', function(req, res, next) {
+//   res.render('./auth/views/login');  
+// });
 
-router.get('/login', function(req, res, next) {
-  res.render('login_register');  
-});
+// router.get('/login', function(req, res, next) {
+//   res.render('./auth/views/login');  
+// });
 
 router.get('/text', function(req, res, next) {
   res.render('text');  
 });
+
 
 module.exports = router;

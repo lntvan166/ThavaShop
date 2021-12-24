@@ -17,7 +17,8 @@ const schema = mongoose.Schema({
     color: String,
     size: Array,
     imageType: String,
-    description: String
+    description: String,
+    slug: String
 })
 
 schema.virtual('imageObj').get(function() {
