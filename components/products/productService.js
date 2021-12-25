@@ -1,11 +1,20 @@
-    const Product = require("../../models/Product")
+const Product = require("../../models/Product");
 
-exports.list = () => Product.find({})
+exports.filter = (sortBy) =>
+  Product.find({
+    // brand: { $in: ["Wrangler", "Buffalo"] },
+    // color: { $in: ["White", "Blue"] },
+  }).sort({
+    [sortBy]: -1,
+  });
 
-exports.productByID = (id) => Product.findOne({ _id: id })
+exports.list = () => Product.find({});
 
-exports.productBySlug = (slug) => Product.findOne({ slug: slug })
+exports.productByID = (id) => Product.findOne({ _id: id });
 
-exports.count = () => Product.count({}).exec()
+exports.count = () => Product.count({}).exec();
 
-exports.findByPage = (page, itemPerPage) => Product.find({}).skip(page * itemPerPage).limit(itemPerPage)
+exports.findByPage = (page, itemPerPage) =>
+  Product.find({})
+    .skip(page * itemPerPage)
+    .limit(itemPerPage);
