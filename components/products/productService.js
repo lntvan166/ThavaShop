@@ -1,12 +1,30 @@
 const Product = require("../../models/Product");
 
-exports.filter = (sortBy) =>
-  Product.find({
-    // brand: { $in: ["Wrangler", "Buffalo"] },
-    // color: { $in: ["White", "Blue"] },
-  }).sort({
-    [sortBy]: -1,
-  });
+exports.filter = function (sortBy, brand, color) {
+  //filter by brand and color
+  if (brand && color) {
+    return Product.find({
+      brand: { $in: brand },
+      color: { $in: color },
+    }).sort({ [sortBy]: 1 });
+  }
+
+  //filter by brand
+  if (brand) {
+    return Product.find({
+      brand: { $in: brand },
+    }).sort({ [sortBy]: 1 });
+  }
+
+  //filter by color
+  if (color) {
+    return Product.find({
+      color: { $in: color },
+    }).sort({ [sortBy]: 1 });
+  }
+
+  return Product.find({}).sort({ [sortBy]: 1 });
+};
 
 exports.list = () => Product.find({});
 

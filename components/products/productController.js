@@ -1,11 +1,13 @@
 const productService = require("./productService");
 
 exports.category = async function (req, res) {
-  var { page, sortBy } = req.query;
+  var { page, sortBy, brand, color } = req.query;
   if (!page) page = 1;
 
   const products = await productService.filter(
-    sortBy?.toLowerCase() ?? "price"
+    sortBy?.toLowerCase() ?? "price",
+    brand,
+    color
   );
   const allProducts = await productService.list();
 
