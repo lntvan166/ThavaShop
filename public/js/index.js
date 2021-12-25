@@ -23,4 +23,14 @@ $(document).ready(function () {
       });
     }
   });
+
+  //clear checked checkbox
+  $("a").click(function (e) {
+    if (e.target.closest(".btn-danger").classList.contains("btn-danger")) {
+      e.preventDefault();
+      $(`div.card-body input[type='checkbox'][name='${this.id}']`).prop({
+        checked: false,
+      });
+    }
+  });
 });
