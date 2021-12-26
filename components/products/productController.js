@@ -9,6 +9,7 @@ exports.category = async function (req, res) {
     brand,
     color
   );
+
   const allProducts = await productService.list();
 
   const length = products.length;
@@ -24,7 +25,7 @@ exports.category = async function (req, res) {
     var item = {
       page: i,
       active: "",
-      sortBy,
+      params: req.query,
     };
     if (i == page) item.active = "active";
 

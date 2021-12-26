@@ -6,24 +6,32 @@ exports.filter = function (sortBy, brand, color) {
     return Product.find({
       brand: { $in: brand },
       color: { $in: color },
-    }).sort({ [sortBy]: 1 });
+    })
+      .sort({ [sortBy]: 1 })
+      .lean();
   }
 
   //filter by brand
   if (brand) {
     return Product.find({
       brand: { $in: brand },
-    }).sort({ [sortBy]: 1 });
+    })
+      .sort({ [sortBy]: 1 })
+      .lean();
   }
 
   //filter by color
   if (color) {
     return Product.find({
       color: { $in: color },
-    }).sort({ [sortBy]: 1 });
+    })
+      .sort({ [sortBy]: 1 })
+      .lean();
   }
 
-  return Product.find({}).sort({ [sortBy]: 1 });
+  return Product.find({})
+    .sort({ [sortBy]: 1 })
+    .lean();
 };
 
 exports.list = () => Product.find({});
