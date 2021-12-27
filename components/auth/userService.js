@@ -8,6 +8,8 @@ exports.findByUsername = (username) => userModel.findOne({
     username: username
 }).lean();
 
+exports.checkExists = (username) => userModel.find({username: username}).limit(1).size();
+
 exports.findByEmail = (email) => userModel.findOne({
     email: email
 }).lean();
