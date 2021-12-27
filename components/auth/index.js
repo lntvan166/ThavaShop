@@ -20,4 +20,6 @@ router.get('/account', loggedInUserGuard, (req, res) => {
 });
 router.post('/account', authController.editAccount)
 
+router.get('/activate', authController.activate)
+
 module.exports = router;
