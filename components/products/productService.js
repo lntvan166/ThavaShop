@@ -36,7 +36,7 @@ exports.filter = function (sortBy, brand, color) {
 
 exports.list = () => Product.find({});
 
-exports.productByID = (id) => Product.findOne({ _id: id });
+exports.productByID = (id) => Product.findOne({ _id: id }).lean();
 
 exports.count = () => Product.count({}).exec();
 
