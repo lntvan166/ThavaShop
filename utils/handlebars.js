@@ -1,14 +1,16 @@
 const helpers = {
-  extractParams: function (anObject) {
+  extractParams(anObject) {
     return Object.keys(anObject)
       .map((key) => {
         if (Array.isArray(anObject[key])) {
           return `${key}=${anObject[key].join(`&${key}=`)}`;
         }
-        if (key === "sortBy" || key === "color" || key === "brand")
-          return `${key}=${anObject[key]}`;
+        if (key !== "page") return `${key}=${anObject[key]}`;
       })
       .join("&");
+  },
+  calcTotal(price, quantity) {
+    return (price * quantity).toFixed(2);
   },
 };
 

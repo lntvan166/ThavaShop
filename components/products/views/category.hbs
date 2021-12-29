@@ -203,8 +203,11 @@
                   <p class="price">
                     <del></del>${{price}}
                   </p>
-                  <p class="buttons"><a href="/category/product/{{slug}}" class="btn btn-outline-secondary">View detail</a><a
-                      href="/cart/{{_id}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a></p>
+                  <p class="buttons"><a href="/category/product/{{slug}}" class="btn btn-outline-secondary">View detail</a>
+                  <form action="/cart" method="post">
+                      <button class="btn btn-primary" type="submit"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+                      <input type="hidden" name="productId" value="{{_id}}">
+                  </form>
                 </div>
                 <!-- /.text-->
               </div>
