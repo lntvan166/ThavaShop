@@ -8,19 +8,35 @@ exports.getCart = async (req, res) => {
     //get cart from cookie
     const cart = req.cookies?.cart;
     if (cart) {
-      // const cart = [
-      //   ...(req.cookies?.cart || []),
-      //   { product, quantity: quantity ?? 1 },
+      //  [
+      // { productId: productId, quantity:  1 },
+      // { productId: productId, quantity: 2 },
+      // { productId: productId, quantity: 4 },
+      // { productId: productId, quantity:  1 },
       // ];
-      console.log(cart);
-      const total = cart.reduce((acc, el) => {
+
+      //map productIds list to products list
+      const productIds = cart.map((item) => item.productId);
+      const products = await productService.getProductsByIds(productIds);
+      const cartProducts = cart.map((item) => {
+        const product = products.find(
+          (product) => product._id == item.productId
+        );
+        return {
+          ...item,
+          productId: product,
+        };
+      });
+
+      //calc total price
+      const total = cartProducts.reduce((acc, el) => {
         return acc + el.productId.price * el.quantity;
       }, 0);
 
       res.render("cart/views/cart.hbs", {
-        products: cart,
+        products: cartProducts,
         total: total.toFixed(2),
-        itemsInCart: cart.length,
+        itemsInCart: cartProducts.length,
       });
     } else {
       res.render("cart/views/cart.hbs", {
@@ -30,10 +46,7 @@ exports.getCart = async (req, res) => {
       });
     }
   } else {
-    // const { products } = await cartService.getCart(
-    //   new ObjectId("61acf26071c71a7a9ed10f2e")
-    // );
-
+    const { products } = await cartService.getCart(req.locals?.user._id);
     const itemsInCart = products.length;
     const total = products.reduce((acc, product) => {
       return acc + product.productId.price * product.quantity;
@@ -48,13 +61,16 @@ exports.getCart = async (req, res) => {
 };
 
 exports.addToCart = async (req, res) => {
-  const { productId, quantity } = req.body;
+  const { productId } = req.body;
+  let { quantity } = req.body;
   //if user is logged in
   // await cartService.addOrUpdateCart(
   //   new ObjectId("61acf26071c71a7a9ed10f2e"),
   //   productId,
   //   quantity ?? 1
   // );
+  //cast quantity to number
+  quantity = Number(quantity ?? 1);
 
   if (req.locals?.user) {
     await cartService.addOrUpdateCart(
@@ -64,17 +80,16 @@ exports.addToCart = async (req, res) => {
     );
   }
 
-  const product = await productService.productByID(productId);
   //creat cart array if it doesn't exist
   const initCart = [...(req.cookies?.cart || [])];
   //check if product already exists in cart
   const productExists = initCart.some(
-    (product) => product.productId._id.toString() === productId.toString()
+    (product) => product.productId.toString() === productId.toString()
   );
   if (productExists) {
     //update quantity
     const updatedCart = initCart.map((product) => {
-      if (product.productId._id.toString() === productId.toString()) {
+      if (product.productId.toString() === productId.toString()) {
         return {
           productId: product.productId,
           quantity: product.quantity + (quantity ?? 1),
@@ -89,7 +104,7 @@ exports.addToCart = async (req, res) => {
     const updatedCart = [
       ...initCart,
       {
-        productId: product,
+        productId: productId,
         quantity: quantity ?? 1,
       },
     ];
@@ -111,7 +126,7 @@ exports.removeFromCart = async (req, res) => {
   }
 
   const cart = req.cookies?.cart.filter(
-    (item) => item.productId._id.toString() !== productId.toString()
+    (item) => item.productId.toString() !== productId.toString()
   );
   res.cookie("cart", cart);
 

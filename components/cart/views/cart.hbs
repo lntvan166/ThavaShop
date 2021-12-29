@@ -32,10 +32,10 @@
                           <td><a href="/category/product/{{productId.slug}}"><img src="{{productId.image}}" alt="{{productId.name}}"></a></td>
                           <td><a href="/category/product/{{productId.slug}}">{{productId.name}}</a></td>
                           <td>
-                            <input type="number" value="{{quantity}}" class="form-control">
+                            <input type="number" data-id="{{productId._id}}" data-price="{{productId.price}}" value="{{quantity}}" class="form-control">
                           </td>
                           <td>${{productId.price}}</td>
-                          <td>${{calcTotal productId.price quantity}}</td>
+                          <td id="{{productId._id}}">${{calcTotal productId.price quantity}}</td>
                           <td>
                             <form action="/cart/remove" method="post">
                               <button class="btn" type="submit"><i class="fa fa-trash-o"></i></button>
